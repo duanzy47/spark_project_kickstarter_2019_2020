@@ -45,7 +45,7 @@ object Preprocessor {
         .read
         .option("header", true)
         .option("inferSchema", true)
-        .csv("datasets/original/train_clean.csv")
+        .csv("src/main/resources/train/train_clean.csv")
 
     println(s"Nombre de lignes : ${df.count}")
     println(s"Nombre de colonnes : ${df.columns.length}")
@@ -174,6 +174,6 @@ object Preprocessor {
       .withColumn("country3", cleanNulsUDF1($"country2"))
       .withColumn("currency3", cleanNulsUDF1($"currency2"))
 
-      dfValueNul.write.parquet("results/Preprocessor")
+      dfValueNul.write.mode("overwrite").parquet("results/Preprocessor")
   }
 }

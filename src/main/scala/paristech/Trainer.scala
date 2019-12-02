@@ -49,7 +49,7 @@ object Trainer {
     println("Step 1: prepare the data")
 
     // Load the parquet data
-    val df = spark.read.parquet("datasets/prepared_trainingset")
+    val df = spark.read.parquet("src/main/resources/preprocessed")
 
     // Stage1 : seperate the text file into words/tokens
     val regexTokenizer = new RegexTokenizer()
@@ -176,7 +176,7 @@ object Trainer {
     val f1Score_tune = evaluator.evaluate(dfWithPredictions)
     println("Logistic Regression F1 Score after tuning : " + f1Score_tune)
 
-    dfWithPredictions.write.parquet("results/Trainer")
+    dfWithPredictions.write.mode("overwrite").parquet("results/Trainer")
 
   }
 }
